@@ -94,8 +94,11 @@ setLoading(false)
         loggedIn:'true'
       }));
       
-  
- 
+  //set localstorage
+  localStorage.setItem("mailtask", response.data.userinfo.mail);
+
+  localStorage.setItem("passwordtask", values.password);
+
 
     }
 

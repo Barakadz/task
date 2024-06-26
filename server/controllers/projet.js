@@ -167,14 +167,14 @@ export const UpdateProjet = (req, res) => {
     }
 
   
-  
+     
     
-    
-    const q = "UPDATE `projet` SET `titre_projet` = ?,   `level` = ? , `description` = ? , `chef_projet` = ? , `date_debut` = ? , `date_fin` = ? , `departement` = ? , `filiale` = ? , `participant` = ? , `tache` = ?  WHERE id = ?";
+    const q = "UPDATE `projet` SET `titre_projet` = ?,   `description` = ? , `chef_projet` = ? , `date_debut` = ? , `date_fin` = ? ,`departement` = ? , `filiale` = ? , `participant` = ?   WHERE id = ?";
   
-    db.query(q,[req.body.titre_projet,req.body.level,req.body.description,req.body.chef_projet,req.body.date_debut,req.body.date_fin,req.body.departement,req.body.filiale,req.body.participant,
+    db.query(q,[req.body.titre_projet,req.body.description,req.body.chef_projet,req.body.date_debut,req.body.date_fin
+      ,req.body.departement,req.body.filiale,req.body.participant ,
         
-        req.body.tache,id], (err, userData) => {
+   id], (err, userData) => {
       if (err) {
         console.error('Error executing query:', err);
         return res.status(500).json({ error: 'Database error' });

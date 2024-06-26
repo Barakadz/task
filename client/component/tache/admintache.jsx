@@ -4,14 +4,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import AddGalButton from './addGalButton';
+import ModifyTache from './modifyTache';
 
 
  
 
 const AdminTache = () => {
-  const [ImageGal, setImage] = useState('');
-  const [TypeGal, setType] = useState('');
-  const [IdGal, setId] = useState('');
+  const [titreTache, setTitreTche] = useState('');
+  const [niveau, setNiveau] = useState('');
+  const [DateDebut, setDateDebut] = useState('');
+  const [DateFin, setDateFin] = useState('');
+  const [Projet, setProjet] = useState('');
+  const [Equipe, setEquipe] = useState('');
+  const [Avancement, setAvancement] = useState('');
+  const [Description, setDescription] = useState('');
+  const [idTache, setTache] = useState('');
 
   const [data, setData] = useState([]);
 
@@ -55,10 +62,21 @@ const AdminTache = () => {
     }
   };
 
-  const ModiyGalerie = (id,image,type) => {
-    setImage(image)
-    setType(type)
-    setId(id)
+
+
+ 
+
+ 
+  const ModiyTachee = (id,titre_tache,description,equipe,date_debut,date_fin,etat,projet,level) => {
+    setTitreTche(titre_tache)
+    setNiveau(level)
+    setDateDebut(date_debut)
+    setDateFin(date_fin)
+    setProjet(projet)
+    setEquipe(equipe)
+    setAvancement(etat)
+    setDescription(description)
+    setTache(id)
       // Logique pour afficher le modal
     const modal = document.getElementById('exampleModall');
     if (modal) {
@@ -69,9 +87,11 @@ const AdminTache = () => {
   return (
     <> 
    
-    
+ 
 <AddGalButton/>
-
+<ModifyTache  titretach={titreTache} nive={niveau} DateDebut={DateDebut} dateFin={DateFin} proj={Projet} equi={Equipe} av={Avancement}
+Descript={Description} id={idTache}
+/>
      <ToastContainer />    
     <MaterialTable
     title="La liste Des Taches :"
@@ -107,7 +127,11 @@ const AdminTache = () => {
         icon: 'edit',
         tooltip: 'Modifier Tache',
         isFreeAction: false,
-        onClick: (event, rowData) => ModiyGalerie(JSON.stringify(rowData.id),JSON.stringify(rowData.image),JSON.stringify(rowData.type)),
+        onClick: (event, rowData) => ModiyTachee(JSON.stringify(rowData.id),JSON.stringify(rowData.titre_tache),JSON.stringify(rowData.description),
+        JSON.stringify(rowData.equipe),JSON.stringify(rowData.date_debut),JSON.stringify(rowData.date_fin),
+        JSON.stringify(rowData.etat),JSON.stringify(rowData.projet),JSON.stringify(rowData.level)
+       
+      ),
       } 
     ]}
    

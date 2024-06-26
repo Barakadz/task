@@ -17,7 +17,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const animatedComponents = makeAnimated();
 
-const AddGalButton = () => {
+const AddGalButton = ( ) => {
+ 
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -122,7 +123,7 @@ const AddGalButton = () => {
       filialegroupe: FilialeAll,
       participant: ParticipantAll,
        mail: user.mail,
-       departement_user:'DSI'
+       departement_user:user.department
     };
     
     fetch(apiUrl, {
@@ -140,6 +141,8 @@ const AddGalButton = () => {
       })
       .then(data => {
         toast.success('Le Projet à été bien Ajouté');
+    
+         resetForm(initialValues); // Reset form fields
           
       })
       .catch(error => {

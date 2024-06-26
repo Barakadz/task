@@ -5,11 +5,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import AddGalButton from './addGalButton';
  import Tour from '../tour';
+import ModifyProject from './modifyProject';
 
 const AdminProjet = () => {
-  const [ImageGal, setImage] = useState('');
-  const [TypeGal, setType] = useState('');
-  const [IdGal, setId] = useState('');
+  const [titreProject, setTitreProject] = useState('');
+  const [descriptionProject, setdescriptionProject] = useState('');
+  const [chefProject, setChefProject] = useState('');
+  const [DateDebut, setDateDebut] = useState('');
+  const [DateFin, SetDateFin] = useState('');
+  const [Departement, setDepartement] = useState('');
+  const [Filiale, setFiliale] = useState('');
+  const [Participant, setParticipant] = useState('');
+  const [IdPro, setIdPro] = useState('');
+
+
+
+  
+
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
@@ -45,10 +57,17 @@ const AdminProjet = () => {
     }
   };
 
-  const ModiyGalerie = (id, image, type) => {
-    setImage(image);
-    setType(type);
-    setId(id);
+  const Modiyprojet = (id, titre_projet, description,chef_projet, date_debut, date_fin,departement, filiale, participant) => {
+    setTitreProject(titre_projet);
+    setdescriptionProject(description);
+    setChefProject(chef_projet);
+    setDateDebut(date_debut);
+    SetDateFin(date_fin);
+    setDepartement(departement);
+    setFiliale(filiale);
+    setParticipant(participant);
+    setIdPro(id);
+    
     const modal = document.getElementById('exampleModall');
     if (modal) {
       modal.classList.add('show');
@@ -58,7 +77,9 @@ const AdminProjet = () => {
 
   return (
     <>
-      <AddGalButton />
+        <AddGalButton /> <ModifyProject  id={IdPro}   tire_projet={titreProject}   descri={descriptionProject}   chefp={chefProject} 
+       dadebut={DateDebut}   dafin={DateFin}dep={Departement}   filia={Filiale} par={Participant}  
+       />   
        <ToastContainer />
       <MaterialTable
         title="La liste Des Projets :"
@@ -86,7 +107,10 @@ const AdminProjet = () => {
             icon: 'edit',
             tooltip: 'Modifier Projet',
             isFreeAction: false,
-            onClick: (event, rowData) => ModiyGalerie(JSON.stringify(rowData.id), JSON.stringify(rowData.image), JSON.stringify(rowData.type)),
+            onClick: (event, rowData) => Modiyprojet(JSON.stringify(rowData.id), JSON.stringify(rowData.titre_projet), JSON.stringify(rowData.description),
+            JSON.stringify(rowData.chef_projet), JSON.stringify(rowData.date_debut), JSON.stringify(rowData.date_fin),
+            JSON.stringify(rowData.departement), JSON.stringify(rowData.filiale), JSON.stringify(rowData.participant)
+          ),
           }
         ]}
         editable={{

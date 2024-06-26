@@ -7,6 +7,8 @@ import projetRoutes from "./routes/projet.js";
  
 import directeurRoutes from "./routes/directeur.js";
 import employeRoutes from "./routes/employe.js";
+import evaluationRoutes from "./routes/evaluation.js";
+import contactRoutes from "./routes/contact.js";
 
 import tacheRoutes from "./routes/tache.js";
 
@@ -34,9 +36,11 @@ app.use(cookieParser());
 
 app.use("/api/projet", projetRoutes);
 app.use("/api/directeur", directeurRoutes);
-app.use("/api/employe", employeRoutes);
+app.use("/api/employe@groupe", employeRoutes);
 
 app.use("/api/tache", tacheRoutes);
+app.use("/api/evaluation", evaluationRoutes);
+app.use("/api/contact", contactRoutes);
 
  
 // Error handling middleware

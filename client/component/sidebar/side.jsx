@@ -6,6 +6,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { AiFillProject, AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { GrValidate } from "react-icons/gr";
 import { TiNews } from "react-icons/ti";
+import axios from 'axios';
+import { setUser } from '../redux/userSlice'; // Adjust the import path to your actual user slice
 
 const Side = () => {
   const router = useRouter();
@@ -13,11 +15,48 @@ const Side = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user.mail === '') {
+    const mail = localStorage.getItem('mailtask');
+    const password = localStorage.getItem('passwordtask');
+
+    if (mail && password) {
+      const authHeader = 'Basic ' + btoa(`${mail}:${password}`);
+      const url = 'https://api.ldap.groupe-hasnaoui.com/task/auth';
+
+      const authenticate = async () => {
+        try {
+          const response = await axios.post(url, {}, {
+            headers: {
+              'Authorization': authHeader
+            }
+          });
+          const isAuthenticated = response.data.authenticated;
+
+          if (!isAuthenticated) {
+            router.push('/login');
+          } else {
+            dispatch(setUser({
+              firstName: response.data.userinfo.name,
+              lastName: response.data.userinfo.fname,
+              phoneNumber: response.data.userinfo.phonenumber,
+              mail: response.data.userinfo.mail,
+              department: response.data.userinfo.department,
+              job: response.data.userinfo.title,
+              loggedIn: 'true'
+            }));
+          }
+        } catch (error) {
+          console.error('Authentication error:', error);
+          router.push('/login');
+        }
+      };
+
+      authenticate();
+    } else {
       router.push('/login');
     }
-  }, [user, router]);
+  }, []);
 
+ 
   return (
     <>
       <div id="sidebar">
@@ -25,7 +64,7 @@ const Side = () => {
           <a href="#">Task Manager ver <b>1.0.0</b></a>
         </header>
         <ul className="nav">
-        <Link legacyBehavior href="/admin">
+          <Link legacyBehavior href="/admin">
             <li className={router.pathname === '/admin' ? 'act ' : ''}>
               <div className="flex flex-row">
                 <GrValidate color="white" fontSize={20} className="mr-4" />
@@ -65,7 +104,6 @@ const Side = () => {
               </div>
             </li>
           </Link>
-          
           <Link legacyBehavior href="/evaluation">
             <li className={router.pathname === '/evaluation' ? 'act evaluation-step' : 'evaluation-step'}>
               <div className="flex flex-row">

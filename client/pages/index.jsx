@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import { useSelector, useDispatch } from 'react-redux';
  import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,12 +14,13 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  useEffect(() => {
 
-  if(user.loggedIn=='' || user.loggedIn=='false'){
-    router.push('/login');
-  }
-})
+  useEffect(() => {
+    router.push('/projet');
+
+  }, []);
+
+
   return (
     <>
       <Head>
