@@ -112,7 +112,7 @@ const AddGalButton = ( ) => {
     const ParticipantAll = values.participant.map(item => item.value).join('-');  
     const ChefProjetAll = values.chefProjet.map(item => item.value).join('-');  
 
-    const apiUrl = 'http://localhost:8800/api/projet/add';
+    const apiUrl = 'https://task.groupe-hasnaoui.com/api/projet/add';
     const requestData = {
       titre_projet: values.titreProjet,
        description: values.description,
@@ -141,10 +141,10 @@ const AddGalButton = ( ) => {
       })
       .then(data => {
         toast.success('Le Projet à été bien Ajouté');
-    
-         resetForm(initialValues); // Reset form fields
-          
-      })
+             router.push('/projet');
+
+   //      resetForm(initialValues); // Reset form fields
+        })
       .catch(error => {
         toast.error('An error occurred:', error);
       });
@@ -278,7 +278,7 @@ const AddGalButton = ( ) => {
             </div>
           </div>
         </div>
-        <button type="button" className="btn btn-success projet-step m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" className="btn btn-success projet-step m-2 " data-bs-toggle="modal" data-bs-target="#exampleModal">
           <i className="fa fa-plus"></i> Ajouter un Projet
         </button>
         <ToastContainer />

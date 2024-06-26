@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegUserCircle } from "react-icons/fa";
@@ -9,16 +9,68 @@ import { TiNews } from "react-icons/ti";
 import axios from 'axios';
 import { setUser } from '../redux/userSlice'; // Adjust the import path to your actual user slice
 
+
 const Side = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
+
+
+  const [data, setData] = useState([]);
+  const [userInfoExists, setUserInfoExists] = useState(false); // State to track user info existence
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     const mail = localStorage.getItem('mailtask');
     const password = localStorage.getItem('passwordtask');
 
     if (mail && password) {
+
+
+      const zer = async () => {
+        try {
+          const response = await fetch('https://task.groupe-hasnaoui.com/api/directeur/');
+          const responseData = await response.json();
+          console.log(responseData)
+          setData(responseData);
+          const userEmail = localStorage.getItem('mailtask');
+          if (userEmail && response.data.some(user => user.mail === userEmail)) {
+            setUserInfoExists(true); // Set state if user email exists in data
+          }
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        }
+      };
+  
+      zer(); // Fetch data when component mounts
+      console.log(data)  
+        console.log(userInfoExists)
+  
+ 
+
+
+
+
+
+
       const authHeader = 'Basic ' + btoa(`${mail}:${password}`);
       const url = 'https://api.ldap.groupe-hasnaoui.com/task/auth';
 
@@ -68,7 +120,7 @@ const Side = () => {
             <li className={router.pathname === '/admin' ? 'act ' : ''}>
               <div className="flex flex-row">
                 <GrValidate color="white" fontSize={20} className="mr-4" />
-                &nbsp; &nbsp;utilisateurs
+                &nbsp; &nbsp;elements
               </div>
             </li>
           </Link>
@@ -115,8 +167,8 @@ const Side = () => {
           <Link legacyBehavior href="/contact">
             <li className={router.pathname === '/contact' ? 'act ' : ''}>
               <div className="flex flex-row">
-                <GrValidate color="white" fontSize={20} className="mr-4" />
-                &nbsp; &nbsp;Contact Direction des systèmes d'information pour résoudre un problème
+                <GrValidate color="white" fontSize={20} className="mr-4 problem-step" />
+                &nbsp; &nbsp; Contacter la DSI
               </div>
             </li>
           </Link>

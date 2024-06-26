@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CiUser, CiCalendarDate, CiMail } from "react-icons/ci";
 import InputAdornment from '@mui/material/InputAdornment';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
   import * as Yup from 'yup';
  import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -21,7 +21,7 @@ import axios from 'axios';
  import { RiLockPasswordLine } from "react-icons/ri";
 import Tour from '../tour';
 import CryptoJS from 'crypto-js';
-
+ 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -37,7 +37,7 @@ function Copyright(props) {
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
-
+//https://task.groupe-hasnaoui.com//api/directeur/
 const defaultTheme = createTheme();
 
 export default function Login() {
@@ -47,7 +47,23 @@ export default function Login() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
     const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
 
+ const fetchData = async () => {
+      try {
+        const response = await axios.get('https://task.groupe-hasnaoui.com/api/directeur/');
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchData();
+      //const intervalId = setInterval(fetchData, 5000); // Fetch data every 5 seconds
+      //return () => clearInterval(intervalId); // Clear interval on component unmount
+    }, []);
+    
   const initialValues = {
  
     email: ''  ,

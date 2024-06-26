@@ -10,13 +10,17 @@ const Tour = () => {
   const steps = [
     {
       target: '.email-step',
-      content: 'Enter your email address here.',
+      content: 'Entrez votre adresse Mail ici ',
     },
     {
       target: '.password-step',
-      content: 'Enter your password here.',
+      content: 'Entrez votre Mot de pass ici',
+    }
+    ,
+    {
+      target: '.problem-step',
+      content: "Pour résoudre un problème, veuillez contacter la Direction des Systèmes d'Information",
     },
- 
   ];
 
   if (!isClient) return null;

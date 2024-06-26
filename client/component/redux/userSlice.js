@@ -9,6 +9,7 @@ const initialState = {
   department:'',
   job:'',
   loggedIn: 'false',
+  directeur:''
 };
 
 const userSlice = createSlice({
@@ -22,7 +23,8 @@ const userSlice = createSlice({
       state.phoneNumber = action.payload.phoneNumber;
       state.department = action.payload.department;
       state.job = action.payload.job;
-     
+      state.directeur = action.payload.directeur;
+
 
        state.loggedIn =  action.payload.loggedIn;
     },
@@ -33,6 +35,8 @@ const userSlice = createSlice({
       state.phoneNumber = ''; 
       state.department = '';
       state.job = '';
+      state.directeur = '';
+
        state.loggedIn = '';
     },
   },
